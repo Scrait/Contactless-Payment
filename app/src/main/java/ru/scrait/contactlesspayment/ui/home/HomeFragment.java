@@ -2,8 +2,14 @@ package ru.scrait.contactlesspayment.ui.home;
 
 import static android.content.Context.WIFI_SERVICE;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -32,7 +38,6 @@ import java.util.Date;
 
 import ru.scrait.contactlesspayment.databinding.FragmentHomeBinding;
 import ru.scrait.contactlesspayment.ui.dashboard.DashboardFragment;
-import ru.scrait.contactlesspayment.ui.dashboard.DashboardViewModel;
 import ru.scrait.contactlesspayment.ui.notifications.NotificationsFragment;
 import ru.scrait.contactlesspayment.utils.DevUtils;
 
@@ -41,8 +46,12 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private int balance;
     private int sum;
-    public static int fare;
+    protected static int fare;
+    protected LocationManager locationManager;
+    private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
+    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
 
+    @SuppressLint("MissingPermission")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         fare = getFare(getActivity());
@@ -59,6 +68,7 @@ public class HomeFragment extends Fragment {
         final TextView textSum = binding.sum;
         final TextView textX = binding.numberXOne;
         final Button pay = binding.pay;
+        final Button map = binding.map;
         final EditText number = binding.numberOfTickets;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         homeViewModel.getTextSum().observe(getViewLifecycleOwner(), textSum::setText);
@@ -108,6 +118,24 @@ public class HomeFragment extends Fragment {
                 NotificationsFragment.setMy_code_text(currentUser.getEmail() + " : " + number.getText().toString() + "x" + " : " + myGetWifiName(getActivity()) + " : " + date);
             }
         });
+
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                MINIMUM_TIME_BETWEEN_UPDATES,
+                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                new MyLocationListener()
+        );
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(showCurrentLocation()));
+                startActivity(intent);
+            }
+        });
         return root;
     }
 
@@ -154,5 +182,55 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    protected String showCurrentLocation() {
+
+        @SuppressLint("MissingPermission") Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        if (location != null) {
+            String message = String.format(
+                    "geo:%1$s, %2$s",
+                    location.getLatitude(), location.getLongitude()
+            );
+            if (DevUtils.isCodding) {
+                Toast.makeText(getActivity().getApplicationContext(), message,
+                        Toast.LENGTH_LONG).show();
+            }
+            return message;
+        } else {
+            return "error";
+        }
+    }
+
+    private class MyLocationListener implements LocationListener {
+
+        public void onLocationChanged(Location location) {
+            String message = String.format(
+                    "geo:%1$s, %2$s",
+                    location.getLatitude(), location.getLongitude()
+            );
+            if (DevUtils.isCodding) {
+                Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();
+            }
+        }
+
+        public void onStatusChanged(String s, int i, Bundle b) {
+            Toast.makeText(getActivity().getApplicationContext(), "Provider status changed",
+                    Toast.LENGTH_LONG).show();
+        }
+
+        public void onProviderDisabled(String s) {
+            Toast.makeText(getActivity().getApplicationContext(),
+                    "Provider disabled by the user. GPS turned off",
+                    Toast.LENGTH_LONG).show();
+        }
+
+        public void onProviderEnabled(String s) {
+            Toast.makeText(getActivity().getApplicationContext(),
+                    "Provider enabled by the user. GPS turned on",
+                    Toast.LENGTH_LONG).show();
+        }
+
     }
 }
