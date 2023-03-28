@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "160425282953",
+    "firebase_url": "https://kvant-505fc-default-rtdb.firebaseio.com",
+    "project_id": "kvant-505fc",
+    "storage_bucket": "kvant-505fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160425282953:android:cfdead6ba5482622afa558",
+        "android_client_info": {
+          "package_name": "com.example.kvantproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160425282953-d80nim100jjcfc5jag48qh6i83cfnq68.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo1KKLwzD4zSroSw8KRirs4bRHt-vGIuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160425282953-d80nim100jjcfc5jag48qh6i83cfnq68.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160425282953:android:bc6697b6423de0bcafa558",
+        "android_client_info": {
+          "package_name": "kvant.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160425282953-d80nim100jjcfc5jag48qh6i83cfnq68.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo1KKLwzD4zSroSw8KRirs4bRHt-vGIuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160425282953-d80nim100jjcfc5jag48qh6i83cfnq68.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160425282953:android:4105cf790ed4c9faafa558",
+        "android_client_info": {
+          "package_name": "ru.scrait.contactlesspayment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160425282953-d80nim100jjcfc5jag48qh6i83cfnq68.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo1KKLwzD4zSroSw8KRirs4bRHt-vGIuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160425282953-d80nim100jjcfc5jag48qh6i83cfnq68.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

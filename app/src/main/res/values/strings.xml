@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Contactlesspayment</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="settings">Аккаунт</string>
+    <string name="Oplata">Оплата проезда</string>
+    <string name="enter_email">Email</string>
+    <string name="enter">Войти</string>
+    <string name="autorisation">Авторизация</string>
+    <string name="User">Пользователь:</string>
+    <string name="password">Пароль:</string>
+    <string name="enter_password">Пароль</string>
+    <string name="enter_password2">Придумайте ваш пароль</string>
+    <string name="chooseTheme">Выбор темы</string>
+    <string name="changeOplata">Изменить способ оплаты</string>
+    <string name="lightOn">Включить светлую тему</string>
+    <string name="darkOn">Включить темную тему</string>
+    <string name="regisrt">Регистрация</string>
+    <string name="oplata2x">Оплатить</string>
+    <string name="zaregisrt">Зарегистрироваться</string>
+    <string name="wifiTExt">Сперва подключитесь к сети вашего автобуса</string>
+    <string name="wifiSearch">Показать все сети</string>
+    <string name="wifiHint">Введите пароль для выбранной сети</string>
+    <string name="ver_code">Предъявите водитю QR код для проверки</string>
+    <string name="logout">Выйти</string>
+    <string name="popolnot">Пополнить</string>
+
+</resources>
