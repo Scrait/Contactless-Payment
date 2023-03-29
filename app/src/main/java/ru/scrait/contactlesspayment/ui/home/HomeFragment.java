@@ -216,18 +216,18 @@ public class HomeFragment extends Fragment {
         }
 
         public void onStatusChanged(String s, int i, Bundle b) {
-            Toast.makeText(getActivity().getApplicationContext(), "Provider status changed",
+            if (DevUtils.isCodding) if (DevUtils.isCodding) Toast.makeText(getActivity().getApplicationContext(), "Provider status changed",
                     Toast.LENGTH_LONG).show();
         }
 
         public void onProviderDisabled(String s) {
-            Toast.makeText(getActivity().getApplicationContext(),
+            if (DevUtils.isCodding) Toast.makeText(getActivity().getApplicationContext(),
                     "Provider disabled by the user. GPS turned off",
                     Toast.LENGTH_LONG).show();
         }
 
         public void onProviderEnabled(String s) {
-            Toast.makeText(getActivity().getApplicationContext(),
+            if (DevUtils.isCodding) Toast.makeText(getActivity().getApplicationContext(),
                     "Provider enabled by the user. GPS turned on",
                     Toast.LENGTH_LONG).show();
         }

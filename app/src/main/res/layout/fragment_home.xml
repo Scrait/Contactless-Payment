@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background3"
+    android:background="@drawable/backgroundtrain3"
     android:backgroundTint="#66000000"
     android:backgroundTintMode="src_over"
     tools:context=".ui.home.HomeFragment">
@@ -95,12 +95,11 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="289dp"
+        android:layout_height="322dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/bus"
+        android:src="@drawable/electrictain"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
