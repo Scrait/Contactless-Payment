@@ -216,7 +216,7 @@ public class HomeFragment extends Fragment {
         }
 
         public void onStatusChanged(String s, int i, Bundle b) {
-            if (DevUtils.isCodding) if (DevUtils.isCodding) Toast.makeText(getActivity().getApplicationContext(), "Provider status changed",
+            if (DevUtils.isCodding) Toast.makeText(getActivity().getApplicationContext(), "Provider status changed",
                     Toast.LENGTH_LONG).show();
         }
 

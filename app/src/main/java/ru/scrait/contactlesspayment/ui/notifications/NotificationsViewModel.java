@@ -13,8 +13,6 @@ public class NotificationsViewModel extends ViewModel {
     public NotificationsViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("");
-        Date date = new Date();
-        NotificationsFragment.setMy_code_text(NotificationsFragment.currentUser.getEmail() + " : " + 0 + "x" +  " : " + date);
     }
 
     public LiveData<String> getText() {

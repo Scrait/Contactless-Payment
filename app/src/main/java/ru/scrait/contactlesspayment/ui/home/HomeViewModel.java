@@ -6,7 +6,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.Date;
+
 import ru.scrait.contactlesspayment.R;
+import ru.scrait.contactlesspayment.ui.notifications.NotificationsFragment;
 
 public class HomeViewModel extends ViewModel {
 
@@ -21,6 +24,8 @@ public class HomeViewModel extends ViewModel {
         mTextSum.setValue("Сумма к оплате\n" + HomeFragment.fare + " руб");
         mTextX = new MutableLiveData<>();
         mTextX.setValue("1x" + HomeFragment.fare);
+        Date date = new Date();
+        NotificationsFragment.setMy_code_text(NotificationsFragment.currentUser.getEmail() + " : " + 0 + "x" +  " : " + date);
     }
 
     public void update(String number, int sum) {
