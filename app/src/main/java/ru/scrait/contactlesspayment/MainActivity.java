@@ -17,7 +17,6 @@ import ru.scrait.contactlesspayment.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private final String APP_PREFERENCES = "MyPrefsLogin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

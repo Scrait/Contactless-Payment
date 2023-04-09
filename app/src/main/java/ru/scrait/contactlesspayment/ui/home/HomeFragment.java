@@ -34,9 +34,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import ru.scrait.contactlesspayment.databinding.FragmentHomeBinding;
+import ru.scrait.contactlesspayment.models.Ticket;
 import ru.scrait.contactlesspayment.ui.dashboard.DashboardFragment;
 import ru.scrait.contactlesspayment.ui.notifications.NotificationsFragment;
 import ru.scrait.contactlesspayment.utils.DevUtils;
@@ -50,6 +55,8 @@ public class HomeFragment extends Fragment {
     protected LocationManager locationManager;
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
+
+    DateFormat df = new SimpleDateFormat("dd MMM yyyy k m");
 
     @SuppressLint("MissingPermission")
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -86,6 +93,7 @@ public class HomeFragment extends Fragment {
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = currentUser.getUid();
         final DatabaseReference databaseReference = MyRefetance.child(uid).child("balance");
+        final DatabaseReference databaseReference2 = MyRefetance.child(uid);
         Toast toast1 = Toast.makeText(getActivity().getApplicationContext(), "Произошла ошибка", Toast.LENGTH_SHORT);
         if (currentUser != null) {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -113,8 +121,10 @@ public class HomeFragment extends Fragment {
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Произошла ошибка, недостаточно средств", Toast.LENGTH_SHORT);
                 }
-                databaseReference.setValue(balance);
-                Date date = new Date();
+                Calendar calendar = new GregorianCalendar();
+                String date = df.format(calendar.getTime());
+                Ticket ticket = new Ticket(currentUser.getEmail().toString(), date, sum, Integer.parseInt(number.getText().toString()));
+                databaseReference2.child("Transactions").child(date).setValue(ticket);
                 NotificationsFragment.setMy_code_text(currentUser.getEmail() + " : " + number.getText().toString() + "x" + " : " + myGetWifiName(getActivity()) + " : " + date);
             }
         });

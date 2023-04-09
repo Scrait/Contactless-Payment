@@ -25,5 +25,11 @@
     <string name="ver_code">Предъявите водитю QR код для проверки</string>
     <string name="logout">Выйти</string>
     <string name="popolnot">Пополнить</string>
+    <string name="date">Дата:</string>
+    <string name="data">Дата:</string>
+    <string name="sum">Сумма:</string>
+    <string name="amount">Кол-во:</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
