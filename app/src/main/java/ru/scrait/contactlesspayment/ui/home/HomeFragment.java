@@ -125,7 +125,6 @@ public class HomeFragment extends Fragment {
                 String date = df.format(calendar.getTime());
                 Ticket ticket = new Ticket(currentUser.getEmail().toString(), date, sum, Integer.parseInt(number.getText().toString()));
                 databaseReference2.child("Transactions").child(date).setValue(ticket);
-                NotificationsFragment.setMy_code_text(currentUser.getEmail() + " : " + number.getText().toString() + "x" + " : " + myGetWifiName(getActivity()) + " : " + date);
             }
         });
 

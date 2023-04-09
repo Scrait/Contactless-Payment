@@ -25,7 +25,7 @@ public class HomeViewModel extends ViewModel {
         mTextX = new MutableLiveData<>();
         mTextX.setValue("1x" + HomeFragment.fare);
         Date date = new Date();
-        NotificationsFragment.setMy_code_text(NotificationsFragment.currentUser.getEmail() + " : " + 0 + "x" +  " : " + date);
+//        NotificationsFragment.setMy_code_text(NotificationsFragment.currentUser.getEmail() + " : " + 0 + "x" +  " : " + date);
     }
 
     public void update(String number, int sum) {

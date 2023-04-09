@@ -11,12 +11,6 @@
     tools:context=".ui.notifications.NotificationsFragment">
 
 
-    <ImageView
-        android:id="@+id/img_result_qr"
-        android:layout_width="336dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHistory"
         android:layout_width="match_parent"

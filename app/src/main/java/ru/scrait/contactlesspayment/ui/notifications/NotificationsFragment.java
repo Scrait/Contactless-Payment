@@ -1,10 +1,9 @@
 package ru.scrait.contactlesspayment.ui.notifications;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,16 +30,16 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-import ru.scrait.contactlesspayment.MainActivity;
+import ru.scrait.contactlesspayment.Dialog.ExampleDialog;
+import ru.scrait.contactlesspayment.R;
+import ru.scrait.contactlesspayment.RecyclerHistoryInterface;
 import ru.scrait.contactlesspayment.adapters.RecyclerViewHistoryAdapter;
 import ru.scrait.contactlesspayment.databinding.FragmentNotificationsBinding;
 import ru.scrait.contactlesspayment.models.Ticket;
-import ru.scrait.contactlesspayment.ui.home.HomeFragment;
 import ru.scrait.contactlesspayment.utils.DevUtils;
 
-public class NotificationsFragment extends Fragment {
+public class NotificationsFragment extends Fragment implements RecyclerHistoryInterface {
 
     private FragmentNotificationsBinding binding;
     public static FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -54,6 +52,10 @@ public class NotificationsFragment extends Fragment {
 
     RecyclerViewHistoryAdapter recyclerViewHistoryAdapter;
     RecyclerView rvHistory;
+    ImageView imgQr;
+
+    String qrText;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         NotificationsViewModel notificationsViewModel =
@@ -64,7 +66,7 @@ public class NotificationsFragment extends Fragment {
 
         rvHistory = binding.rvHistory;
 
-        recyclerViewHistoryAdapter = new RecyclerViewHistoryAdapter(getContext(), listDates, listSums, listAmounts);
+        recyclerViewHistoryAdapter = new RecyclerViewHistoryAdapter(getContext(), listDates, listSums, listAmounts, this);
 
         rvHistory.setLayoutManager(new LinearLayoutManager(getContext()));
         rvHistory.setAdapter(recyclerViewHistoryAdapter);
@@ -76,36 +78,12 @@ public class NotificationsFragment extends Fragment {
             getTransactionHistory();
         }
 
+        imgQr =  getActivity().findViewById(R.id.imageQr);
+
         return root;
     }
 
-    private void creatCode(String my_code_text) {
-        QRCodeWriter writer = new QRCodeWriter();
-        try {
-            BitMatrix bitMatrix = writer.encode(my_code_text, BarcodeFormat.QR_CODE, 512, 512);
-            int width = bitMatrix.getWidth();
-            int height = bitMatrix.getHeight();
-            Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    bmp.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
-                }
-            }
-            ((ImageView) binding.imgResultQr).setImageBitmap(bmp);
-            if (DevUtils.isCodding) {
-                Toast.makeText(getActivity().getApplicationContext(), "успешно", Toast.LENGTH_SHORT).show();
-            }
-
-        } catch (WriterException e) {
-            e.printStackTrace();
-            if (DevUtils.isCodding) {
-                Toast.makeText(getActivity().getApplicationContext(), "Произошла ошибка", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-    }
-
-    public static void setMy_code_text(String text) {
+    public static void getQrText(String text) {
         my_code_text = text;
     }
 
@@ -148,5 +126,21 @@ public class NotificationsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void OnItemClick(int position) {
+        String date = ((TextView) rvHistory.findViewHolderForAdapterPosition(position).itemView.findViewById(R.id.tvRecyclerViewDate)).getText().toString();
+        String amount = ((TextView) rvHistory.findViewHolderForAdapterPosition(position).itemView.findViewById(R.id.tvRecyclerViewAmount)).getText().toString();
+        String sum = ((TextView) rvHistory.findViewHolderForAdapterPosition(position).itemView.findViewById(R.id.tvRecyclerViewSum)).getText().toString();
+        qrText = date + "; " + amount + "; "+ sum + ";";
+        Log.i("ААААААААААААААААА СУКА", qrText);
+        openDialog();
+    }
+
+    private void openDialog() {
+        ExampleDialog exampleDialog = new ExampleDialog();
+        exampleDialog.setText(qrText);
+        exampleDialog.show(getParentFragmentManager(), "Qr-code");
     }
 }
