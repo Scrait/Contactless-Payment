@@ -183,7 +183,7 @@ public class HomeFragment extends Fragment {
         } else if (DevUtils.isCodding) {
             return 150;
         } else {
-            return 0;
+            return 150;
         }
     }
 

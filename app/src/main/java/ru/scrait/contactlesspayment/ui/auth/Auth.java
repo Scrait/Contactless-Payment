@@ -3,6 +3,7 @@ package ru.scrait.contactlesspayment.ui.auth;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import ru.scrait.contactlesspayment.MainActivity;
+import android.Manifest;
 import ru.scrait.contactlesspayment.R;
 import ru.scrait.contactlesspayment.models.User;
 
@@ -46,6 +50,16 @@ public class Auth extends AppCompatActivity {
         edit_password = findViewById(R.id.edit_password);
 
         mAuth = FirebaseAuth.getInstance();
+
+        if (ContextCompat.checkSelfPermission(Auth.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(Auth.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+        }
+        if (ContextCompat.checkSelfPermission(Auth.this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(Auth.this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 0);
+        }
+        if (ContextCompat.checkSelfPermission(Auth.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(Auth.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        }
 
         Button btnLogin = findViewById(R.id.login);
         btnLogin.setOnClickListener(new View.OnClickListener() {
